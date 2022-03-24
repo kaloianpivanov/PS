@@ -37,5 +37,12 @@
         <Button HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="70" Click="Button_Click">
             Click me!
         </Button>
+        <ListBox x:Name="peopleListBox" HorizontalAlignment="Left" Height="185" Margin="590,104,0,0" VerticalAlignment="Top" Width="155">
+            <ListBoxItem Content="Mike" FontSize="18"/>
+            <ListBoxItem Content="Lisa" FontSize="18"/>
+            <ListBoxItem Content="John" FontSize="18"/>
+            <ListBoxItem Content="Mary" FontSize="18"/>
+        </ListBox>
+        <Button x:Name="greeting" Content="Greeting" HorizontalAlignment="Left" Height="28" Margin="598,303,0,0" VerticalAlignment="Top" Width="139" RenderTransformOrigin="0.501,0.627" Click="Button_Greeting"/>
     </Grid>
 </Window>
