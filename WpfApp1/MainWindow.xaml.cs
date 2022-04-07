@@ -62,7 +62,7 @@ namespace StudentInfoSystem
             Course.Text = "";
         }
 
-        private void PrintStudent(Student student)
+        public void PrintStudent(Student student)
         {
             Name.Text = student.Name;
             Surname.Text = student.Surname;
@@ -75,6 +75,7 @@ namespace StudentInfoSystem
             Course.Text = student.Course.ToString();
             Stream.Text = student.Stream.ToString();
             Course.Text = student.Course.ToString();
+            Group.Text = student.Group.ToString();
         }
 
 
@@ -106,6 +107,17 @@ namespace StudentInfoSystem
             Course.IsEnabled = true;
             Stream.IsEnabled = true;
             Course.IsEnabled = true;
+        }
+
+        private void TestClick(object sender, RoutedEventArgs e)
+        {
+            StudentData studentData = new StudentData();
+            PrintStudent(studentData.TestStudents[0]);
+        }
+
+        public void HideButton()
+        {
+            TestButton.Visibility = Visibility.Collapsed;
         }
     }
 }

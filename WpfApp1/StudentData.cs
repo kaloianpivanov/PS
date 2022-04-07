@@ -13,7 +13,7 @@ namespace StudentInfoSystem
         public StudentData()
         {
             Student student = new Student() { Name="Gosho", Surname="Petrov", Family="Todorov", Faculty="FKST", Speciality="ITI",
-            Degree="Bakalavur", Status="deistvasht", FacNum="90488485", Course=1, Stream=9,Group=34,};
+            Degree="Bakalavur", Status="deistvasht", FacNum="90488485", Course=1, Stream=9,Group=34, Username="gosho", Password="secret"};
             TestStudents.Add(student);
         }
     }

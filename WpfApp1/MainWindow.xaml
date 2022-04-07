@@ -11,15 +11,16 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Image Height="30" Width="30" Grid.Column="0">
-            <Image.Source>
-                <BitmapImage  UriSource="something" />
+        <Image Grid.Column="0" Stretch="Uniform" >
+            <Image.Source >
+                <BitmapImage UriSource="R.png" />
             </Image.Source>
         </Image>
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="2*"/>
                 <RowDefinition Height="3*"/>
+                <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <GroupBox Grid.Row="0" Header="Лични данни">
                 <Grid HorizontalAlignment="Left"  VerticalAlignment="Top">
@@ -75,8 +76,8 @@
                 </Grid>
             </GroupBox>
         </Grid>
-            
-        
+        <Button x:Name="TestButton" VerticalAlignment="Bottom" Margin="5" Height="30" Width="150" Grid.Row="2" Click="TestClick">Тест</Button>
+
 
     </Grid>
 </Window>

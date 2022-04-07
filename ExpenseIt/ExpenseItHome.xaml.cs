@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -17,17 +20,32 @@ namespace ExpenseIt
     /// <summary>
     /// Interaction logic for ExpenseItHome.xaml
     /// </summary>
-    public partial class ExpenseItHome : Window
+    public partial class ExpenseItHome : Window, INotifyPropertyChanged
     {
         public string MainCaptionText { get; set; }
         public List<Person> ExpenseDataSource { get; set; }
 
-        public DateTime LastChecked { get; set; }
+        public ObservableCollection<string> PersonsChecked
+        { get; set; }
+
+        private DateTime lastChecked;
+        public DateTime LastChecked
+        {
+            get { return lastChecked; }
+            set
+            {
+                lastChecked = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
 
 
         public ExpenseItHome()
         {
             InitializeComponent();
+            PersonsChecked = new ObservableCollection<string>();
             LastChecked = DateTime.Now;
             this.DataContext = this;
             MainCaptionText = "View Expense Report :";
@@ -110,6 +128,19 @@ namespace ExpenseIt
             reportWindow.Height = this.Height;
             reportWindow.Width = this.Width;
             reportWindow.ShowDialog();
+        }
+
+        private void peopleListBox_SelectionChanged_1(object sender,SelectionChangedEventArgs e)
+
+        {
+            LastChecked =DateTime.Now;
+            Person selectedItem = (Person) peopleListBox.SelectedItem;
+            PersonsChecked.Add(selectedItem.Name);
+        }
+
+        protected void OnPropertyChanged([CallerMemberName] string? name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
     }
 }

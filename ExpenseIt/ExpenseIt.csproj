@@ -15,4 +15,10 @@
     <Resource Include="watermark.png" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Person.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+  </ItemGroup>
+
 </Project>
