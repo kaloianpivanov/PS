@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace StudentInfoSystem
 {
@@ -27,8 +29,13 @@ namespace StudentInfoSystem
 
             }
         }
+        public List<string> StudStatusChoices { get; set; }
         public MainWindow()
         {
+            StudStatusChoices = new List<string>();
+            FillStudStatusChoices();
+            if (TestStudentsIfEmpty()) CopyTestStudents();
+            this.DataContext = this;
             InitializeComponent();
         }
 
@@ -55,7 +62,6 @@ namespace StudentInfoSystem
             Faculty.Text = "";
             Speciality.Text = "";
             Degree.Text = "";
-            Status.Text = "";
             FacNum.Text = "";
             Course.Text = "";
             Stream.Text = "";
@@ -70,7 +76,6 @@ namespace StudentInfoSystem
             Faculty.Text = student.Faculty;
             Speciality.Text = student.Speciality;
             Degree.Text = student.Degree;
-            Status.Text = student.Status;
             FacNum.Text = student.FacNum;
             Course.Text = student.Course.ToString();
             Stream.Text = student.Stream.ToString();
@@ -118,6 +123,50 @@ namespace StudentInfoSystem
         public void HideButton()
         {
             TestButton.Visibility = Visibility.Collapsed;
+        }
+
+        private void FillStudStatusChoices()
+        {
+            using (IDbConnection connection = new SqlConnection(Properties.Settings.Default.DbConnect))
+            {
+                string sqlquery =
+                @"SELECT StatusDescr FROM StudStatus";
+                IDbCommand command = new SqlCommand();
+                command.Connection = connection;
+                connection.Open();
+                command.CommandText = sqlquery;
+                IDataReader reader = command.ExecuteReader();
+                bool notEndOfResult;
+                notEndOfResult = reader.Read();
+                while (notEndOfResult)
+
+                {
+                    string s = reader.GetString(0);
+                    StudStatusChoices.Add(s);
+                    notEndOfResult = reader.Read();
+                }
+            }
+        }
+
+        private bool TestStudentsIfEmpty()
+        {
+            StudentInfoContext context = new StudentInfoContext();
+            IEnumerable<Student> queryStudents = context.Students;
+            int countStudents = queryStudents.Count();
+            MessageBox.Show(countStudents.ToString());
+            if(countStudents != 0) return false;
+            return true;
+        }
+
+        private void CopyTestStudents()
+        {
+            StudentInfoContext context = new StudentInfoContext();
+            StudentData studentData = new StudentData();
+            foreach (Student st in studentData.TestStudents)
+            {
+                context.Students.Add(st);
+            }
+            context.SaveChanges();
         }
     }
 }

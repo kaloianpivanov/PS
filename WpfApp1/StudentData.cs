@@ -16,5 +16,16 @@ namespace StudentInfoSystem
             Degree="Bakalavur", Status="deistvasht", FacNum="90488485", Course=1, Stream=9,Group=34, Username="gosho", Password="secret"};
             TestStudents.Add(student);
         }
+
+        public Student IsThereStudent(string facNum)
+        {
+            StudentInfoContext context = new StudentInfoContext();
+
+            Student result =
+            (from st in context.Students
+             where st.FacNum == facNum
+             select st).First();
+            return result;
+        }
     }
 }

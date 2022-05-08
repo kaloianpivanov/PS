@@ -21,5 +21,7 @@ namespace UserLogin
         { get; set; }
         public DateTime? DateActive
         { get; set; }
+        public int UserId
+        { get; set; }
     }
 }
